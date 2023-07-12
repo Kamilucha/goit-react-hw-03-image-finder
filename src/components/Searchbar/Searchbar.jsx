@@ -40,9 +40,3 @@ export default class SearchBar extends Component{
         )
       }
 }
-    
-    // handleSubmit = async e => {
-    //   e.preventDefault();
-    //   const { hits } = await fetchImg(this.state.imageName, 1)
-    //     this.props.onSubmit(hits)
-    // }
