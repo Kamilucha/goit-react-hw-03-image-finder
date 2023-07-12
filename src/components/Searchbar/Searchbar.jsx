@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Header, SearchBarForm, Input, ButtonForm, ButtonLabel } from "./Searchbar.styled";
-import { fetchImg } from "services/pixabay-api";
+
 
 export default class SearchBar extends Component{
     state = {
@@ -8,15 +8,15 @@ export default class SearchBar extends Component{
     }
   
 
-    handleNameChange = e => {
+  handleNameChange = e => {
+      e.preventDefault();
     this.setState({imageName: e.currentTarget.value.toLowerCase()})
     }
 
     
-    handleSubmit = async (e) => {
+    handleSubmit =  (e) => {
       e.preventDefault();
-      const images = await fetchImg(this.state.imageName, 1);
-      this.props.onSubmit(images);
+      this.props.onSubmit(this.state.imageName);
     };
     
     render() {
