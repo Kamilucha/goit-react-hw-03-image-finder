@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { Header, SearchBarForm, Input, ButtonForm, ButtonLabel } from "./Searchbar.styled";
+import { toast } from 'react-toastify';
 
 
 export default class SearchBar extends Component{
@@ -14,8 +15,13 @@ export default class SearchBar extends Component{
     }
 
     
-    handleSubmit =  (e) => {
-      e.preventDefault();
+  handleSubmit = (e) => {
+    e.preventDefault();
+    if (this.state.imageName.trim() === '') {
+      toast.warning('Please write what you are looking for.');
+      return;
+    }  
+
       this.props.onSubmit(this.state.imageName);
     };
     
