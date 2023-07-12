@@ -13,11 +13,9 @@ export default class App extends Component {
       .catch(error => console.log('Error fetching images:', error));
 }
 
-  handleSearch =  (imageName) => {
-
-  const { hits } = fetchImg(imageName, 1);
+  handleSearch =  async (imageName) => {
+  const { hits } = await  fetchImg(imageName, 1);
   this.setState({ images: hits });
-
   };
 
   render() {

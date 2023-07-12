@@ -9,13 +9,10 @@ export const ImageGallery = ({ images }) => {
         {images.map(({ id, webformatURL, largeImageURL, tags }) => {
             return ( 
                 <ImageGalleryItem key={id} webformatURL={webformatURL} largeImageURL={ largeImageURL} tags={tags} />
-            )
-        })}
-                </ImageList>
-                   ) : (
-        <p>No images found.</p>
-      )}
+            )})}
+    </ImageList>
+        ) : (
+        <p>No images found.</p>)}
     </div>
-   ) 
-}
+   )}
 

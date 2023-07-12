@@ -15,6 +15,8 @@ export async function fetchImg(name, page) {
     const response = await fetch(`${URL}?${searchParams.toString()}`);
       const data = await response.json();
       console.log(data)
+
+      return data
   } catch (error) {
     console.log('Error fetching images:', error);
   }
