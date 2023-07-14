@@ -24,13 +24,12 @@ export default class Modal extends Component {
   };
 
     render() {
-        // const { largeImgURL, tags } = this.props.data
         const { data } = this.props;
-        const { largeImgURL, tags } = data || {};
+        const { largeImageURL, tags } = data || {};
         return createPortal(
             <Overlay onClick={this.handleOnClose}>
                 <ModalWindow>
-                   <img src={largeImgURL} alt={tags} />
+                   <img src={largeImageURL} alt={tags} />
                 </ModalWindow>
             </Overlay>, modalRoot,
         );

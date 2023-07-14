@@ -22,6 +22,7 @@ export default class SearchBar extends Component{
       return;
     }  
 
+    console.log(this.state.imageName)
       this.props.onSubmit(this.state.imageName);
     };
     
