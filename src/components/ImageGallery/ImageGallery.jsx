@@ -1,19 +1,28 @@
-import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem'
-import { Component } from 'react'
-import { ImageList } from './ImageGallery.styled'
+import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
+import { Component } from 'react';
+import { ImageList } from './ImageGallery.styled';
+import { toast } from 'react-toastify';
 
 
 
 export default class ImageGallery extends Component{
-    state = {
+  async componentDidUpdate(prevProps, prevState){
+    const { loadMore, page, imageName, } = this.props;
 
+    if (prevProps.imageName !== imageName || prevProps.page !== page) {
+      if (prevProps.imageName !== imageName) {
+        loadMore(false);
+        this.setState({ images: [], page: 1 });
+      }
     }
+    
+  }
     render() {
-        const { images, isLoading } = this.props
+      const { images, isLoading, onClick } = this.props;
 
          if (!images || images.length === 0) {
       return <p>No images found.</p>;
-    }
+      };
         
         return  (
       <div>
@@ -21,56 +30,19 @@ export default class ImageGallery extends Component{
           <div>Loading...</div>
         ) : (
           <ImageList>
-            {images.map(({ id, webformatURL, largeImageURL, tags }) => (
+            {images.map(({ id, webformatURL, largeImageURL, tags,}) => (
               <ImageGalleryItem
                 key={id}
+                id={id}
                 webformatURL={webformatURL}
                 largeImageURL={largeImageURL}
                 tags={tags}
+                onClick={onClick}
               />
             ))}
           </ImageList>
         )}
       </div>
     );
- }
-}
-//   render() {  
-//       const { images } = this.props
-//     return (
-//           <div>
-//       {images && images.length > 0 ? (
-//        <ImageList>
-//         {images.map(({ id, webformatURL, largeImageURL, tags }) => {
-//             return ( 
-//                 <ImageGalleryItem key={id} webformatURL={webformatURL} largeImageURL={ largeImageURL} tags={tags} />
-//             )})}
-//     </ImageList>
-//         ) : (
-//         <p>No images found.</p>)}
-//     </div>
-//    )}
-
-
-
-    //         <div>
-    //     {images && images.length > 0 ? (
-    //       <>
-    //         <ImageList>
-    //           {images.slice(0, loadMore).map(image => (
-    //             <ImageGalleryItem key={image.id}>
-    //               <Image src={image.webformatURL} alt={image.tags} />
-    //             </ImageGalleryItem>
-    //           ))}
-    //         </ImageList>
-    //         {loadMore < images.length && (
-    //           <button onClick={this.handleLoadMore}>Load more</button>
-    //         )}
-    //       </>
-    //     ) : (
-    //       <p>No images found.</p>
-    //     )}
-    //   </div>
-
-
-         
+  };
+};
