@@ -1,7 +1,7 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { Component } from 'react';
 import { ImageList } from './ImageGallery.styled';
-import { toast } from 'react-toastify';
+
 
 
 

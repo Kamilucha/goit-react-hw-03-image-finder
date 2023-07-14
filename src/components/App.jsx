@@ -52,7 +52,7 @@ export default class App extends Component {
    
   // }
   onLoadMore = async () => {
-  const { page, images } = this.state;
+  const { page,  } = this.state;
   const { imageName } = this.props;
   const nextPage = page + 1;
 
@@ -69,7 +69,7 @@ export default class App extends Component {
 
 
   render() {
-    const { images, loading, showModal, modalValue, page, loadMore } = this.state;
+    const { images, loading, showModal, modalValue,  loadMore } = this.state;
 
 
     return <>
