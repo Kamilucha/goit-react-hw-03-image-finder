@@ -80,12 +80,12 @@ export default class App extends Component {
     this.setState({loadMore: true})
   };
 
-  onLoadMore = () => {
-    this.setState(({ page }) => ({
-      page: page + 1
-    }))
+  // onLoadMore = () => {
+  //   this.setState(({ page }) => ({
+  //     page: page + 1
+  //   }))
    
-  }
+  // }
 //   onLoadMore = async () => {
 //   const { page, images } = this.state;
 //   const { imageName } = this.props;
@@ -104,7 +104,7 @@ export default class App extends Component {
 
 
   render() {
-    const { images, loading, showModal, modalValue, page, loadMore } = this.state;
+    const { images, loading, showModal, modalValue, loadMore } = this.state;
 
 
     return <>
