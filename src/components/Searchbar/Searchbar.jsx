@@ -1,22 +1,27 @@
 import { Component } from "react";
 import { Header, SearchBarForm, Input, ButtonForm, ButtonLabel } from "./Searchbar.styled";
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
 
 
 export default class SearchBar extends Component{
-    state = {
-      imageName: '',
-    }
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired, 
+  }
+
+  state = {
+    imageName: '',
+  }
   
 
   handleNameChange = e => {
-
     this.setState({imageName: e.currentTarget.value})
-    }
+  }
 
     
   handleSubmit = (e) => {
     e.preventDefault();
+    
     if (this.state.imageName.trim() === '') {
       toast.warning('Please write what you are looking for.');
       return;
