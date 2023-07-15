@@ -16,7 +16,42 @@ export default class App extends Component {
     modalValue: {},
     loadMore: false,
     page: 1,
+    name: '', 
+    totalImages: 0,
+
   }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.name !== this.state.name ||
+  //     prevState.page !== this.state.page) {
+  //     this.setState({ loading: true })
+      
+  //     fetchImg("name", 1).then(({ hits }) => this.setState({ ...this.state, images: hits }))
+  //       .catch(error => console.log('Error fetching images:', error))
+  //       .finally(() => {
+  //       this.setState({ ...this.state, loading: false });
+  //     });
+  //   }
+  // }
+
+  // handleSearch = async (name) => {
+  //   const { hits } = await fetchImg(name, 1);
+  //    this.setState({ images: hits, loading: false });
+    
+  //   if (this.state.name === name) {
+  //     return alert ('ви вже переглядаєте')
+  //   }
+  //   console.log(name)
+  //   this.setState({
+  //     name: name.toLowerCase(), images: [], page: 1,
+  //   })
+  // }
+  onLoadMore = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }))
+  }
+  
   componentDidMount() {
     this.setState({ loading: true, })
     
@@ -45,38 +80,38 @@ export default class App extends Component {
     this.setState({loadMore: true})
   };
 
-  // onLoadMore = () => {
-  //   this.setState(({ page }) => ({
-  //     page: page + 1
-  //   }))
+  onLoadMore = () => {
+    this.setState(({ page }) => ({
+      page: page + 1
+    }))
    
-  // }
-  onLoadMore = async () => {
-  const { page,  } = this.state;
-  const { imageName } = this.props;
-  const nextPage = page + 1;
-
-  try {
-    const { hits } = await fetchImg(imageName, nextPage);
-    this.setState(prevState => ({
-      images: [...prevState.images, ...hits],
-      page: nextPage
-    }));
-  } catch (error) {
-    console.log('Error fetching more images:', error);
   }
-}
+//   onLoadMore = async () => {
+//   const { page, images } = this.state;
+//   const { imageName } = this.props;
+//   const nextPage = page + 1;
+
+//   try {
+//     const { hits } = await fetchImg(imageName, nextPage);
+//     this.setState(prevState => ({
+//       images: [...prevState.images, ...hits],
+//       page: nextPage
+//     }));
+//   } catch (error) {
+//     console.log('Error fetching more images:', error);
+//   }
+// }
 
 
   render() {
-    const { images, loading, showModal, modalValue,  loadMore } = this.state;
+    const { images, loading, showModal, modalValue, page, loadMore } = this.state;
 
 
     return <>
       {showModal && <Modal onClick={this.togleModal} data={modalValue} onClose={ this.togleModal} />}
       {loading && <Loader/>}
       <SearchBar onSubmit={this.handleSearch} />
-      <ImageGallery images={images} loading={loading} onClick={this.togleModal} loadMore={ loadMore} />
+      <ImageGallery images={images} loading={loading} onClick={this.togleModal} loadMore={ this.onLoadMore} />
       {loadMore && <ButtonLoadMore onClick={this.onLoadMore} />}
       <ToastContainer autoClose={3000} />
     </>

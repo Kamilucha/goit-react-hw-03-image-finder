@@ -1,11 +1,20 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { Component } from 'react';
 import { ImageList } from './ImageGallery.styled';
-
+import PropTypes from 'prop-types';
 
 
 
 export default class ImageGallery extends Component{
+  static propTypes = {
+    page: PropTypes.number.isRequired,
+    loadMore: PropTypes.bool.isRequired,
+    imageName: PropTypes.string.isRequired,
+    images: PropTypes.array.isRequired, 
+    isLoading: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
+  }
+
   async componentDidUpdate(prevProps, prevState){
     const { loadMore, page, imageName, } = this.props;
 

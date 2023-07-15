@@ -10,8 +10,8 @@ export default class SearchBar extends Component{
   
 
   handleNameChange = e => {
-      e.preventDefault();
-    this.setState({imageName: e.currentTarget.value.toLowerCase()})
+
+    this.setState({imageName: e.currentTarget.value})
     }
 
     
