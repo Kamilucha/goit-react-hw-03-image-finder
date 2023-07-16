@@ -7,9 +7,13 @@ import { Overlay, ModalWindow } from "./Modal.styled";
 const modalRoot= document.querySelector('#modal-root')
 
 export default class Modal extends Component {
-    static propTypes = {
-        data: PropTypes.object.isRequired, 
-    }
+   static propTypes = {
+    data: PropTypes.shape({
+      largeImageURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+    }),
+    onClose: PropTypes.func.isRequired,
+  };
 
 
     state = {

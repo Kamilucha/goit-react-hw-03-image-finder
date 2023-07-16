@@ -1,3 +1,4 @@
+
 import { Component } from "react"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,7 +15,7 @@ import Modal from "./Modal/Modal";
 export default class App extends Component {
   state = {
     images: [],
-    loading: true,
+    loading: false,
     showModal: false,
     modalValue: {},
     loadMore: false,
@@ -25,41 +26,66 @@ export default class App extends Component {
   }
 
   onLoadMore = async () => {
-    const { imageName, page } = this.state;
-
-    const { hits } = await fetchImg(imageName, page + 1);
-
-    this.setState(({ images }) => ({
-      images: [...images, ...hits],
+    this.setState(({ page }) => ({
       page: page + 1,
     }))
+
+    // const { imageName, page } = this.state;
+
+    // const { hits } = await fetchImg(imageName, page + 1);
+
+    // this.setState(({ images }) => ({
+    //   images: [...images, ...hits],
+    //   page: page + 1,
+    // }))
   }
   
-  componentDidMount() {
-    // this.setState({ loading: true, })
-    
+  async componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.imageName !== this.state.imageName ||
+      prevState.page !== this.state.page
+    ) {
+      this.setState({ loading: true });
+
+      const { hits, total } = await fetchImg(this.state.imageName, this.state.page);
+      if (!total) {
+        return alert('На жаль, за вашим запитом нічого не знайдено');
+      }
+
+      this.setState(({ images }) => ({
+        images: [...images, ...hits],
+        loading: false,
+      }))
+    }
+
+
+    /*
      fetchImg("initialImage", 1)
       .then(({ hits }) => this.setState({ ...this.state, images: hits }))
        .catch(error => console.log('Error fetching images:', error))
        .finally(() => {
         this.setState({ ...this.state, loading: false });
       });
+      */
   }
   
   toggleModal = modalValue => {
-    this.setState({ modalValue })
+    // this.setState({ modalValue })
 
     this.setState(({ showModal }) => ({
-      showModal: !showModal
+      showModal: !showModal,
+      modalValue
     }))
   }
 
   handleSearch = async (imageName) => {
-    this.setState({ images: [], loading: true });
+
+    this.setState({ imageName, images: [], loadMore: true, page: 1 })
+    // this.setState({ images: [], loading: true });
   
-    const { hits } = await fetchImg(imageName, 1);
+    // const { hits } = await fetchImg(imageName, 1);
   
-    this.setState({ images: hits, loading: false, page: 1, loadMore: true, imageName });
+    // this.setState({ images: hits, loading: false, page: 1, loadMore: true, imageName });
   };
 
   render() {
